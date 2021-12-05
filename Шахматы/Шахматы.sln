@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Шахматы", "Шахматы\Шахматы.vcxproj", "{88F6CAEB-5812-41B2-97B1-A6FD3612A217}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Debug|x64.ActiveCfg = Debug|x64
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Debug|x64.Build.0 = Debug|x64
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Debug|x86.ActiveCfg = Debug|Win32
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Debug|x86.Build.0 = Debug|Win32
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Release|x64.ActiveCfg = Release|x64
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Release|x64.Build.0 = Release|x64
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Release|x86.ActiveCfg = Release|Win32
+		{88F6CAEB-5812-41B2-97B1-A6FD3612A217}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17ABE068-A59E-43F1-BCA0-84C0784314E3}
+	EndGlobalSection
+EndGlobal
