@@ -44,7 +44,7 @@ bool black(Field A, Field B)
         return true;
 }
 
-void queen(Field A, Field B)
+void queen(Field A, Field B) // Ферзь
 {
     if (((abs(A.x - B.x) <= 1) & (abs(A.y - B.y) <= 1)) || (A.x == B.x || A.y == B.y))
         cout << "б)Угрожает" << endl;
@@ -52,7 +52,7 @@ void queen(Field A, Field B)
         cout << "б)Не угрожает" << endl;
 }
 
-void rook(Field A, Field B)
+void rook(Field A, Field B) // Ладья
 {
     if (A.x == B.x || A.y == B.y)
         cout << "б)Угрожает" << endl;
@@ -60,7 +60,7 @@ void rook(Field A, Field B)
         cout << "б)Не угрожает" << endl;
 }
 
-void bishop(Field A, Field B)
+void bishop(Field A, Field B) // Слон
 {
     if (abs(A.x - B.x) == abs(A.y - B.y))
         cout << "б)Угрожает" << endl;
@@ -68,7 +68,7 @@ void bishop(Field A, Field B)
         cout << "б)Не угрожает" << endl;
 }
 
-void knight(Field A, Field B)
+void knight(Field A, Field B) // Конь
 {
     if ((A.x - 1 == B.x || A.x + 1 == B.x) & (A.y - 2 == B.y || A.y + 2 == B.y))
         cout << "б)Угрожает" << endl;
@@ -103,7 +103,7 @@ void knight(Field A, Field B)
         if (((abs(A.x - d) <= 1) & (abs(A.y - g) <= 1)) || (A.x == d || A.y == g))
             return true;
     }
-    bool check_bishop(Field A, Field B)
+    bool check_bishop(Field A, Field B) // Слон
     {
         int d;
         int g;
@@ -113,7 +113,7 @@ void knight(Field A, Field B)
             return true;
     }
 
-    bool check_rook(Field A, Field B)
+    bool check_rook(Field A, Field B) // Ладья
     {
         int d;
         int g;
@@ -171,6 +171,7 @@ void knight(Field A, Field B)
              else
                cout << "За два хода можно попасть через поле " << "(" << B.x << ", " << A.y << ")" << endl;
             break;
+                //////////////////////// Со слоном не получается :(
         case 2: 
             if (check_bishop(A, B) == true)
                 cout << "С поля 1 на поле 2 можно попасть одним ходом." << endl;
