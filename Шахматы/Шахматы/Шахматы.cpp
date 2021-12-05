@@ -1,7 +1,4 @@
-﻿// Шахматы.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
 
 using namespace std;
 
@@ -13,12 +10,25 @@ public:
     {
         cout << "Введите координату x: ";
         cin >> x;
+        
+            while ((x>8) || (x<1))
+            {
+                cout << "Введите в диапазоне [1; 8]" << endl;
+                cout << "Введите координату x: ";
+                cin >> x;
+            }
+      
+        
         cout << "Введите координату y: ";
-        cin >> y;
+        cin >> y;     
+        while ((y > 8) || (y < 1))
+            {
+                cout << "Введите в диапазоне [1; 8]" << endl;
+                cout << "Введите координату y: ";
+                cin >> y;
+            }
     }
 };
-
-//////// для пункта а)
 
 bool white(Field A, Field B)
 {
@@ -33,8 +43,6 @@ bool black(Field A, Field B)
         (((B.x % 2 == 0) & (B.y % 2 == 0)) || ((B.x % 2 == 1) & (B.y % 2 == 1)))) /// поля черного цвета
         return true;
 }
-
-/////// пункт б) описание фигур
 
 void queen(Field A, Field B)
 {
@@ -69,7 +77,6 @@ void knight(Field A, Field B)
     else
         cout << "б)Не угрожает" << endl;
 }
-
 
     void chess_board()
     {
