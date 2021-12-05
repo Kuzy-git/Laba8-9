@@ -22,15 +22,15 @@ public:
 
 bool white(Field A, Field B)
 {
-    if (((A.x % 2 == 1 & A.y % 2 == 0) || (A.x % 2 == 0 & A.y % 2 == 1)) &
-        ((B.x % 2 == 1 & B.y % 2 == 0) || (B.x % 2 == 0 & B.y % 2 == 1))) /// поля белого цвета
+    if ((((A.x % 2 == 1) & (A.y % 2 == 0)) || ((A.x % 2 == 0) & (A.y % 2 == 1))) &
+        (((B.x % 2 == 1) & (B.y % 2 == 0)) || ((B.x % 2 == 0) & (B.y % 2 == 1)))) /// поля белого цвета
         return true;
 }
 
 bool black(Field A, Field B)
 {
-    if (((A.x % 2 == 0 & A.y % 2 == 0) || (A.x % 2 == 1 & A.y % 2 == 1)) &
-        ((B.x % 2 == 0 & B.y % 2 == 0) || (B.x % 2 == 1 & B.y % 2 == 1))) /// поля черного цвета
+    if ((((A.x % 2 == 0) & (A.y % 2 == 0)) || ((A.x % 2 == 1) & (A.y % 2 == 1))) &
+        (((B.x % 2 == 0) & (B.y % 2 == 0)) || ((B.x % 2 == 1) & (B.y % 2 == 1)))) /// поля черного цвета
         return true;
 }
 
@@ -38,7 +38,7 @@ bool black(Field A, Field B)
 
 void queen(Field A, Field B)
 {
-    if ((abs(A.x - B.x) <= 1 & abs(A.y - B.y) <= 1) || (A.x == B.x || A.y == B.y))
+    if (((abs(A.x - B.x) <= 1) & (abs(A.y - B.y) <= 1)) || (A.x == B.x || A.y == B.y))
         cout << "б)Угрожает" << endl;
     else
         cout << "б)Не угрожает" << endl;
@@ -87,51 +87,96 @@ void knight(Field A, Field B)
         cout << "\n" << "y\n" << endl;
     }
     
-int main()
-{
-    chess_board();
-    setlocale(LC_ALL, "Rus");
-    cout << "Поле шахматной доски определяется парой натуральных чисел, каждое из которых не превосходит восьми:" << endl;
-    cout << "\nПоле 1:" << endl;
-    Field A;
-    A.input();
-    cout << "\nПоле 2:" << endl;
-    Field B;
-    B.input();    
-
-    if ((white(A, B) == true) || (black(A, B) == true))
-        cout << "\na)Поля одного цвета" << endl;
-    else cout << "\na)Поля разных цветов" << endl;
-
-    cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон, 3-конь." << endl;
-    int s;
-    cin >> s;
-    cout << endl;
-    switch (s)
+    bool check_queen(Field A, Field B) ///Ферзь
     {
-    case 0: queen(A, B);
-        break;
-    case 1: rook(A, B);
-        break;
-    case 2: bishop(A, B);
-        break;
-    case 3: knight(A, B);
-        break;
+        int d;
+        int g;
+        d = B.x;
+        g = B.y;
+        if (((abs(A.x - d) <= 1) & (abs(A.y - g) <= 1)) || (A.x == d || A.y == g))
+            return true;
+    }
+    bool check_bishop(Field A, Field B)
+    {
+        int d;
+        int g;
+        d = B.x;
+        g = B.y;
+        if (abs(A.x - d) == abs(A.y - g))
+            return true;
     }
 
-    cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон." << endl;
-    int t;
-    cin >> t;
-    switch (t)
+    bool check_rook(Field A, Field B)
     {
-    case 0: queen(A, B);
-        break;
-    case 1: rook(A, B);
-        break;
-    case 2: bishop(A, B);
-        break;
+        int d;
+        int g;
+        d = B.x;
+        g = B.y;
+        if (A.x == d || A.y == g)
+            return true;
+    }
 
-    return 0;
-}
+    int main()
+    {
+        chess_board();
+        setlocale(LC_ALL, "Rus");
+        cout << "Поле шахматной доски определяется парой натуральных чисел, каждое из которых не превосходит восьми:" << endl;
+        cout << "\nПоле 1:" << endl;
+        Field A;
+        A.input();
+        cout << "\nПоле 2:" << endl;
+        Field B;
+        B.input();
 
+        if ((white(A, B) == true) || (black(A, B) == true))
+            cout << "\na)Поля одного цвета" << endl;
+        else cout << "\na)Поля разных цветов" << endl;
+
+        cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон, 3-конь." << endl;
+        int s;
+        cin >> s;
+        cout << endl;
+        switch (s)
+        {
+        case 0: queen(A, B);
+            break;
+        case 1: rook(A, B);
+            break;
+        case 2: bishop(A, B);
+            break;
+        case 3: knight(A, B);
+            break;
+        }
+
+        cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон." << endl;
+        int t;
+        cin >> t;
+        switch (t)
+        {
+        case 0:
+            if (check_queen(A, B) == true)
+                cout << "С поля 1 на поле 2 можно попасть одним ходом." << endl;
+            else           
+                 cout << "За два хода можно попасть через поле " << "(" << B.x << ", " << A.y << ")" << endl;        
+            break;
+        case 1: if (check_rook(A, B) == true)
+               cout << "С поля 1 на поле 2 можно попасть одним ходом." << endl;
+             else
+               cout << "За два хода можно попасть через поле " << "(" << B.x << ", " << A.y << ")" << endl;
+            break;
+        case 2: 
+            if (check_bishop(A, B) == true)
+                cout << "С поля 1 на поле 2 можно попасть одним ходом." << endl;
+            else if (((A.x < B.x) & (A.y < B.y)) & ((white(A, B) == true) || (black(A, B) == true)))
+                cout << "За два хода можно попасть через поле " << "(" << B.x + 1 << ", " << B.y - 1 << ")" << endl;
+            else if (((A.x > B.x) & (A.y > B.y)) & ((white(A, B) == true) || (black(A, B) == true)))
+                cout << "За два хода можно попасть через поле " << "(" << (B.x + B.y)/2 << ", " << (B.x + B.y) / 2 << ")" << endl;
+            else if (((A.x < B.x) & (A.y > B.y)) & (A.y-B.y < 5) & ((white(A, B) == true) || (black(A, B) == true)))
+                cout << "За два хода можно попасть через поле " << "(" << A.x - 1 << ", " << A.y - 1 << ")" << endl;
+            else cout << "За два хода невозможно дойти до поля 2" << endl;
+            break;
+
+            return 0;
+        }
+    }
 
