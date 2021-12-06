@@ -1,4 +1,7 @@
 ﻿#include <iostream>
+#include <fstream>
+#include <Windows.h>
+#include<conio.h>
 
 using namespace std;
 
@@ -125,23 +128,77 @@ void knight(Field A, Field B) // Конь
 
     int main()
     {
+        ofstream file;
+        file.open("C:\\Users\\Татьяна\\Desktop\\Учёба\\ПП\\Laba8-9\\Шахматы\\log.txt",ios::app);//Создаёт файл.Добавляет новую запись в файл.
+        
+        SYSTEMTIME st;//Обращение к структуре времени в С++.
+        GetLocalTime(&st);//Функция.Обращение к адресу переменной структуры(st).
+        if (file.is_open() == true)//Если адрес правильный - записываем. 
+        {
+            file << st.wYear << "/" << st.wMonth << "/" << st.wDay << endl;
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Начало программы." << endl;
+        }
+        else//Если где то ошибка выводится сообщение об ошибки в консоль.
+        {
+            file << "Файл не записался." << endl;
+        }
+        
         chess_board();
         setlocale(LC_ALL, "Rus");
         cout << "Поле шахматной доски определяется парой натуральных чисел, каждое из которых не превосходит восьми:" << endl;
         cout << "\nПоле 1:" << endl;
         Field A;
         A.input();
+        if ((A.x < 9) & (A.x > 0) & (A.y < 9) & (A.y > 0))
+        {
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Ввод поля 1 выполнен успешно:" << "(" << A.x << ", " << A.y << ")" << endl;
+        }
+        else
+        {
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Ввод поля 1 выполнен c ошибкой" << endl;
+        }
+
         cout << "\nПоле 2:" << endl;
         Field B;
         B.input();
+        if ((B.x < 9) & (B.x > 0) & (B.y < 9) & (B.y > 0))
+        {
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Ввод поля 2 выполнен успешно:" << "(" << B.x << ", " << B.y << ")" << endl;
+        }
+        else
+        {
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Ввод поля 2 выполнен c ошибкой" << endl;
+        }
 
         if ((white(A, B) == true) || (black(A, B) == true))
             cout << "\na)Поля одного цвета" << endl;
         else cout << "\na)Поля разных цветов" << endl;
+        GetLocalTime(&st);
+        file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Проверка полей выполнена успешно." << endl;
 
         cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон, 3-конь." << endl;
         int s;
         cin >> s;
+        if ((s == 0) || (s == 1) || (s == 2) || (s == 3))
+        {           
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Выбор фигуры выполнен успешно." << endl;            
+        }
+        else
+        {
+            while ((s != 0) & (s != 1) & (s != 2) & (s != 3))
+            {
+                cout << "Неверный ввод" << endl;
+                cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон, 3-конь." << endl;
+                cin >> s;
+            }
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Обработка ошибки: неправильный ввод фигуры" << endl;
+        }
         cout << endl;
         switch (s)
         {
@@ -154,10 +211,29 @@ void knight(Field A, Field B) // Конь
         case 3: knight(A, B);
             break;
         }
+        GetLocalTime(&st);
+        file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Проверка " << endl;
 
         cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон." << endl;
         int t;
         cin >> t;
+        if ((t == 0) || (t == 1) || (t == 2))
+        {
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Выбор фигуры выполнен успешно." << endl;            
+        }
+        else
+        {
+            while ((t != 0) & (t != 1) & (t != 2))
+            {
+                cout << "Неверный ввод" << endl;
+                cout << "\nВыберите фигуру на поле " << "(" << A.x << ", " << A.y << ")" << ": 0-ферзь, 1-ладья, 2-слон." << endl;
+                cin >> t;
+            }
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Обработка ошибки: неправильный ввод фигуры" << endl;
+        }
+        
         switch (t)
         {
         case 0:
@@ -183,8 +259,13 @@ void knight(Field A, Field B) // Конь
                 cout << "За два хода можно попасть через поле " << "(" << A.x - 1 << ", " << A.y - 1 << ")" << endl;
             else cout << "За два хода невозможно дойти до поля 2" << endl;
             break;
-
-            return 0;
+            GetLocalTime(&st);
+            file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Вычисления..." << endl;
         }
+
+        GetLocalTime(&st);//Функция .
+        file << st.wHour << ":" << st.wMinute << ":" << st.wSecond << " Конец программы." << endl;
+        file.close();//Закрываем файл.
+        return 0;
     }
 
